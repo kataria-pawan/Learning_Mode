@@ -1,0 +1,61 @@
+use database demo_database; -- database which is already created
+
+----WHEN THERE IS NO DATA AVAIALBLE
+--HARDLY 1-5 % IN REALITY
+CREATE OR REPLACE TABLE pk_sales 
+( customer_id VARCHAR(1) PRIMARY KEY ,
+  order_date DATE DEFAULT TO_DATE('2022-12-10'),
+  product_id INT not null);
+  
+-- The copy is created using the same version of the table storage format as the original table.
+CREATE OR REPLACE TABLE  pk_sales_COPY LIKE  pk_sales;
+
+-- to check the structure and description of variables
+DESCRIBE TABLE pk_sales_COPY;
+
+ALTER TABLE pk_sales_COPY
+DROP PRIMARY KEY;
+
+alter table pk_sales_COPY
+ADD column aadhar_no varchar(15) PRIMARY KEY;
+
+----WHEN THERE IS DATA AVAIALBLE
+--HARDLY 1-5 % IN REALITY
+-- inserting the values inside the table
+INSERT INTO pk_sales
+VALUES
+('A', '2021-01-01', '1'),
+('A', '2021-01-01', '2'),
+('A', '2021-01-07', '2'),
+('A', '2021-01-10', '3'),
+('A', '2021-01-11', '3'),
+('A', '2021-01-11', '3'),
+('B', '2021-01-01', '2'),
+('B', '2021-01-02', '2'),
+('B', '2021-01-04', '1'),
+('B', '2021-01-11', '1'),
+('B', '2021-01-16', '3'),
+('C','2021-01-07', '3'),
+('d','2021-01-23', 4); 
+
+INSERT INTO pk_sales(customer_id,product_id)
+VALUES('E',5); 
+
+SELECT * FROM PK_SALES;
+
+CREATE OR REPLACE TABLE  pk_sales_COPY_DATA AS
+SELECT * FROM pk_SALES;
+
+SELECT * FROM pk_SALES_COPY_DATA;
+
+DESCRIBE TABLE pk_SALES_COPY_DATA;
+
+ALTER TABLE pk_SALES_COPY_DATA
+DROP PRIMARY KEY;
+
+alter table pk_sales_copy_data
+ADD column aadhar_no varchar(15);
+
+-- ADD THE COLUMN FIRST AND THEN MAKE IT PK USING 2 STEP PROCESS
+alter table pk_sales_copy_data
+ADD PRIMARY KEY (aadhar_no);
