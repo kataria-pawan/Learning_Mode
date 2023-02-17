@@ -44,3 +44,49 @@ SELECT DISTINCT ISSUE FROM PK_CONSUMER_COMPLAINTS;
 
 select distinct COMPANY from PK_CONSUMER_COMPLAINTS;
 SELECT DISTINCT SUBMITTED_VIA  from PK_CONSUMER_COMPLAINTS;
+
+----------LIKE KEYWORD ----
+---------------------------HIGHLY USED IN SQL --------------------
+-- (%) represents zero,one,or multiple characters
+-- (_) underscore represnts one,singe chracter
+/*
+
+a% - any values that starts with a
+%a - any values that ends with a
+%word% - any values that has word in any position
+
+_a% - any values that has a in teh second position
+a_% - any values that starts with "a" and are atleast 2 chracters in length
+a__% - any values that starts with "a" and are atleast 3 chracters in length
+a%r - any values that starts with a and ends with r
+
+ab%cd%de%f - any values that starts with ab followed by any characters and then cd and then followed by any characters 
+and then de followed by any charcaters and ending with f
+
+*/
+---a% - any values that starts with a
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE 'Bank%'; 
+--- bank at the start followed by any character % AT THE END MEANS Bank followed by any sequence of character
+
+--%word% - any values that has word in any position
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE '%account%'; --anywhere word 'account' appearing in the data 
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE '%Credit%'; --anywhere credit
+
+--%a - any values that ends with a
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE '%account'; -- AT THE END I NEED ACCOUNT as product name 
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE '%loan';  -- at the end i need loan keyword to be there
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE '%loan';
+
+--_a% - any values that has a in the second position
+select * from PK_CONSUMER_COMPLAINTS where company like '_a%';
+
+--a_% - any values that starts with "a" and are atleast 2 chracters in length
+select * from PK_CONSUMER_COMPLAINTS where SUBMITTED_VIA like 'F_%'; 
+
+--a__% - any values that starts with "a" and are atleast 3 chracters in length
+SELECT * FROM PK_CONSUMER_COMPLAINTS WHERE CONSUMER_COMPLAINT_NARRATIVE LIKE 'a__%';
+
+
+--a%r - any values that starts with a and ends with r
+SELECT * FROM PK_CONSUMER_COMPLAINTS WHERE SUB_PRODUCT LIKE 'C%t';
+select * from PK_CONSUMER_COMPLAINTS where ISSUE like 'M%e';
