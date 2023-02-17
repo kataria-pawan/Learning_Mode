@@ -104,3 +104,22 @@ insert into like_ex values
 SELECT * FROM like_ex;
 select subject from like_ex where subject like '%Jo%oe%' ;
 --order by subject;
+
+
+------------------------------------------------------------IN KEYWORD-----------------------------------
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS;
+
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME IN ('Consumer Loan','Mortgage','Debt collection');
+
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS
+WHERE PRODUCT_NAME = 'Consumer Loan' OR 
+PRODUCT_NAME = 'Mortage' OR PRODUCT_NAME = 'Debt collection';
+
+
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS 
+WHERE COMPANY IN ('Wells Fargo & Company','Citibank','
+Bank of America');
+
+SELECT DISTINCT * FROM PK_CONSUMER_COMPLAINTS 
+WHERE DATE_RECEIVED BETWEEN '29-07-2013' AND '31-07-2013'
+or BETWEEN '29-07-2013' AND '31-07-2013;
