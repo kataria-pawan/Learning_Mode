@@ -90,3 +90,17 @@ SELECT * FROM PK_CONSUMER_COMPLAINTS WHERE CONSUMER_COMPLAINT_NARRATIVE LIKE 'a_
 --a%r - any values that starts with a and ends with r
 SELECT * FROM PK_CONSUMER_COMPLAINTS WHERE SUB_PRODUCT LIKE 'C%t';
 select * from PK_CONSUMER_COMPLAINTS where ISSUE like 'M%e';
+
+create or replace table like_ex(subject varchar(20));
+insert into like_ex values
+    ('John  Dddoe'),
+    ('Joe   Doe'),
+    ('John_down'),
+    ('Joe down'),
+    ('Elaine'),
+    (''),    -- empty string
+    (null);
+
+SELECT * FROM like_ex;
+select subject from like_ex where subject like '%Jo%oe%' ;
+--order by subject;
