@@ -1,0 +1,20 @@
+-- sql date functions
+
+use database "DEMO_DATABASE";
+
+alter session set timestamp_type_mapping = timestamp_ntz;
+
+create or replace table ts_test(ts timestamp);
+
+describe table ts_test;
+
+create or replace table ts_test(ts timestamp_ltz);
+
+alter session set timezone = 'America/Los_Angeles';
+
+insert into ts_test values('2014-01-01 16:00:00');
+insert into ts_test values('2014-01-02 16:00:00 +00:00');
+
+-- Note that the time for January 2nd is 08:00 in Los Angeles (which is 16:00 in UTC)
+
+select * from ts_test;
