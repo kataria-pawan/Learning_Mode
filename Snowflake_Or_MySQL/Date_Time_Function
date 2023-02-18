@@ -18,3 +18,13 @@ insert into ts_test values('2014-01-02 16:00:00 +00:00');
 -- Note that the time for January 2nd is 08:00 in Los Angeles (which is 16:00 in UTC)
 
 select * from ts_test;
+
+select ts, hour(ts) from ts_test;
+
+select convert_timezone('Europe/Warsaw', 'UTC', '2019-01-01 00:00:00'::timestamp_ntz) as conv;
+
+SELECT
+    months_between('2019-03-15'::date,
+                   '2019-02-15'::date) as monthsbetween1,
+    months_between('2019-03-31'::date,
+                   '2020-02-28'::date) as monthsbetween2;
