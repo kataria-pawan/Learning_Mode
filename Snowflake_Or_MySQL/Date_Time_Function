@@ -114,3 +114,22 @@ SELECT EXTRACT(MONTH FROM CURRENT_DATE) AS MTH;
 
 SELECT ADD_MONTHS(CURRENT_DATE,-3) AS DATE_3_MNTHS_BACK;
 SELECT ADD_MONTHS(CURRENT_DATE,5) AS DATE_5_MNTHS_AHEAD;
+
+select datediff('day', '2022-06-01',CURRENT_DATE);
+select datediff('day', '2022-07-23','2023-07-19');
+
+select datediff('MONTH', '2021-06-01',CURRENT_DATE);
+select datediff('YEAR', '2014-06-01',CURRENT_DATE);
+
+select dateadd('day',-23,'2022-06-01');
+select dateadd('month',-2,'2022-06-01');
+select dateadd('year',-5,'2022-06-01');
+
+select WEEK(CURRENT_DATE); -- FROM 1ST JAN 2022 HOW MNAY EEKS HAVE SURPASSED
+select MONTH(CURRENT_DATE); -- -- FROM 1ST JAN 2022 HOW MNAY MONTHS HAVE SURPASSED
+
+
+
+
+select datediff('MONTH', '2022-06-01',CURRENT_DATE);
+select datediff('YEAR', '2014-06-01',CURRENT_DATE);
