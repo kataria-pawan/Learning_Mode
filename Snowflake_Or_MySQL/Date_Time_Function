@@ -28,3 +28,16 @@ SELECT
                    '2019-02-15'::date) as monthsbetween1,
     months_between('2019-03-31'::date,
                    '2020-02-28'::date) as monthsbetween2;
+
+-- GET CURRENT DATE
+SELECT CURRENT_DATE;
+
+-- GET CURRENT TIME
+SELECT CURRENT_TIMESTAMP;
+
+-- GET CURRENT DATE
+SELECT CURRENT_TIME;
+
+
+-- CONVERT TIMEZONE
+SELECT CONVERT_TIMEZONE('UTC',CURRENT_TIMESTAMP) AS UTC_TIMEZONE;
