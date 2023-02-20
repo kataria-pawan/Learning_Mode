@@ -11,3 +11,26 @@ select distinct CONSUMER_DISPUTED from PK_CONSUMER_COMPLAINTS;
 --SYNTAX : SELECT DISTINCT COL_NAME FROM TABLE_NAME
 SELECT DISTINCT PRODUCT_NAME FROM PK_CONSUMER_COMPLAINTS;
 SELECT DISTINCT SUB_PRODUCT FROM PK_CONSUMER_COMPLAINTS;
+
+SELECT DISTINCT ISSUE FROM PK_CONSUMER_COMPLAINTS;
+
+select distinct COMPANY from PK_CONSUMER_COMPLAINTS;
+SELECT DISTINCT SUBMITTED_VIA  from PK_CONSUMER_COMPLAINTS;
+
+--to select all the columns
+--then am filtering rows based on the conditions 
+SELECT DATE_RECEIVED, PRODUCT_NAME ,SUB_PRODUCT,ISSUE,
+        CASE WHEN SUBMITTED_VIA IN ('Referral','Postal Mail','Email') THEN 'Outbound'
+             WHEN SUBMITTED_VIA IN ('Phone','Web') THEN 'Inbound'
+             ELSE 'Electronics'
+         END AS Submission_Type,
+         
+         COMPANY,STATE_NAME,ZIP_CODE
+FROM PK_CONSUMER_COMPLAINTS;
+
+
+select *, case
+when SUBMITTED_VIA in ('Phone' ,'Web') then 'INBOard',
+when SUBMITTED_VIA = 'Fax' then 'Electronic',
+else 'outboard'
+end as Submission_type;
