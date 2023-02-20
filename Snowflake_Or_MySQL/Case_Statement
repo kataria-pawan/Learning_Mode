@@ -84,4 +84,30 @@ SELECT *,
 	WHEN lower(SUB_PRODUCT) LIKE '%mortage' THEN 'MORTGAGE'
 	ELSE SUB_PRODUCT
     END AS SUB_PRODUCT_TYPE
-FROM PK_CONSUMER_COMPLAINTS;
+FROM SELECT *,
+case
+    when lower(sub_product) like '%loan%' then 'LOAN'
+    when lower(sub_product) like '%card%' then 'CARD'
+    when lower(sub_product) like '%mortage%' then 'MORTAGE'
+    when sub_product ='I do not know' or sub_product is NULL  then 'NA'
+    else sub_product
+    end as subproduct_type
+    from AJ_CONSUMER_COMPLAINTS;;
+
+SELECT *,
+case
+    when lower(sub_product) like '%loan%' then 'LOAN'
+    when lower(sub_product) like '%card%' then 'CARD'
+    when lower(sub_product) like '%mortage%' then 'MORTAGE'
+    when sub_product ='I do not know' or sub_product is NULL  then 'NA'
+    else sub_product
+    end as subproduct_type
+    from SELECT *,
+case
+    when lower(sub_product) like '%loan%' then 'LOAN'
+    when lower(sub_product) like '%card%' then 'CARD'
+    when lower(sub_product) like '%mortage%' then 'MORTAGE'
+    when sub_product ='I do not know' or sub_product is NULL  then 'NA'
+    else sub_product
+    end as subproduct_type
+    from AJ_CONSUMER_COMPLAINTS;;
