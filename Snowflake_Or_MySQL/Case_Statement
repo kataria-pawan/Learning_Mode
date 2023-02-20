@@ -92,7 +92,7 @@ case
     when sub_product ='I do not know' or sub_product is NULL  then 'NA'
     else sub_product
     end as subproduct_type
-    from AJ_CONSUMER_COMPLAINTS;;
+    from PK_CONSUMER_COMPLAINTS;
 
 SELECT *,
 case
@@ -110,4 +110,31 @@ case
     when sub_product ='I do not know' or sub_product is NULL  then 'NA'
     else sub_product
     end as subproduct_type
-    from AJ_CONSUMER_COMPLAINTS;;
+    from PK_CONSUMER_COMPLAINTS;
+
+CREATE OR REPLACE VIEW  AJ_COMPANY_RESPONSE_TO_CONSUMER AS
+SELECT DATE_RECEIVED,PRODUCT_NAME,SUB_PRODUCT,ISSUE,COMPANY,STATE_NAME,ZIP_CODE,SUBMITTED_VIA,
+
+         CASE WHEN SUBMITTED_VIA IN ('Referral','Postal Mail','Email') THEN 'Outbound'
+              WHEN SUBMITTED_VIA IN ('Phone','Web') THEN 'Inbound'
+             ELSE 'Electronics'
+         END AS Submission_Type,
+         
+         case 
+               when SUB_PRODUCT = 'I do not know' or SUB_PRODUCT is NULL THEN 'NA'
+               when lower (SUB_PRODUCT) LIKE '%loan' THEN 'LOAN'
+               when lower (SUB_PRODUCT) LIKE  '%card' THEN 'CARD'
+               when lower (SUB_PRODUCT) LIKE '%mortgage' THEN 'MORTGAGE'
+               ELSE SUB_PRODUCT
+         END AS SUB_PRODUCT_TYPE,
+         
+         CASE 
+             WHEN COMPANY_RESPONSE_TO_CONSUMER = 'Closed with explanation' THEN 'Explained'
+             WHEN COMPANY_RESPONSE_TO_CONSUMER = 'Closed with monetary relief' THEN 'Monetary releif provided'
+             WHEN COMPANY_RESPONSE_TO_CONSUMER LIKE '%Closed%' THEN 'Closed'
+             ELSE COMPANY_RESPONSE_TO_CONSUMER
+        END AS COMPANY_RESPONSE_CONSUMER_TYPE
+        
+FROM PK_CONSUMER_COMPLAINTS;
+
+SELECT * FROM PK_COMPANY_RESPONSE_TO_CONSUMER;
