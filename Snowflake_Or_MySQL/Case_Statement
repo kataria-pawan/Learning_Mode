@@ -66,3 +66,22 @@ select  *,
     end as finance_type
   from PK_CONSUMER_COMPLAINTS;
   
+SELECT *,
+        CASE
+        WHEN PRODUCT_NAME LIKE '%Loan%' OR PRODUCT_NAME LIKE '%loan%' THEN 'LOAN'
+        WHEN PRODUCT_NAME IN ('Bank account or service','Mortgage','Debt collection','Credit card','Credit reporting',
+                              'Money transfers','Prepaid card') THEN 'SERVICE'
+        ELSE 'OTHER'
+        END AS TYPE
+FROM PK_CONSUMER_COMPLAINTS;
+
+
+SELECT *,
+	CASE
+	WHEN SUB_PRODUCT = 'I do not know' or SUB_PRODUCT is null THEN 'NA'
+	WHEN lower(SUB_PRODUCT) LIKE '%loan' THEN 'LOAN'
+	WHEN lower(SUB_PRODUCT) LIKE '%card' THEN 'CARD'
+	WHEN lower(SUB_PRODUCT) LIKE '%mortage' THEN 'MORTGAGE'
+	ELSE SUB_PRODUCT
+    END AS SUB_PRODUCT_TYPE
+FROM PK_CONSUMER_COMPLAINTS;
