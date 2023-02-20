@@ -33,4 +33,36 @@ select *, case
 when SUBMITTED_VIA in ('Phone' ,'Web') then 'INBOard',
 when SUBMITTED_VIA = 'Fax' then 'Electronic',
 else 'outboard'
-end as Submission_type;
+end as Submission_type
+from PK_CONSUMER_COMPLAINTS;
+
+SELECT DISTINCT COMPANY_RESPONSE_TO_CONSUMER FROM PK_CONSUMER_COMPLAINTS;
+
+-----CODE 
+select *,
+    CASE 
+        wHen Product_Name like '%loan%' or Product_Name like '%Loan%' then 'Loan type'--THIS U CAN AVOIUD 
+        when Product_Name in ('Bank account or service','Mortgage','Debt collection', 
+                              'Credit reporting','Money transfers') then 'service'
+        else 'other'
+        
+    end as Finance_type 
+    from PK_CONSUMER_COMPLAINTS;
+    
+    
+    ----- OPTIMIZED CODE
+    SELECT *,
+               CASE 
+	                WHEN LOWER(PRODUCT_NAME) LIKE '%loan' THEN 'Loan'
+	                WHEN UPPER(PRODUCT_NAME) IN('BANK ACCOUNT OR SERVICE','MORTGAGE','DEBT CLLECTION','CREDIT CARD','CREDIT REPORTING','MONEY TRANSFERS') THEN 'Service'
+	ELSE 'Other'
+END AS FINANCE_TYPE
+FROM PK_CONSUMER_COMPLAINTS;
+
+select  *,
+    case when product_name like '%loan' or product_name like '%Loan' then 'loan'
+         when product_name in ('Mortage','Bank account or service then','Credit reporting') then 'Service'
+    else 'Others'
+    end as finance_type
+  from PK_CONSUMER_COMPLAINTS;
+  
