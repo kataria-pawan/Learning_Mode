@@ -64,3 +64,29 @@ FROM AGENTS;
 
 select substr('Raja Ram',0,3);
 select substr('Raja Ram',3);
+
+
+select substring('ANAND KUMAR JHA',-7,6); -- START FROM INDEX -7 AND GIVE NEXT 3 CHARACTERS FROM THAT INDEX
+select substring('ANAND KUMAR JHA',-7,-4); -- NO OUTPUT
+select substring('ANAND KUMAR JHA',NULL); 
+---sajkdsdjfsfbffbkjtqjUK
+
+--Example 2: Get the substring from a specific string by using table data
+select AGENT_CODE,AGENT_NAME,substring(AGENT_CODE,-3,3) AS AGENT_INITIALS from agents;
+select AGENT_CODE,AGENT_NAME,substring(AGENT_CODE,2,5) AS AGENT_INITIALS from agents;
+
+select substring('ruhee k qureshi',1,1), substring('ruhee k qureshi',7,1) ,substring('ruhee k qureshi',9,1) as initial;
+
+SELECT * FROM AGENTS;
+
+SELECT * FROM "DEMO_DATABASE"."PUBLIC"."AJ_CONSUMER_COMPLAINTS";
+
+--TAKE THIS AS A HINT
+CREATE OR REPLACE VIEW AJ_CONSUMER_COMPLAINTS_VIEW AS
+SELECT *,CONCAT(ZIP_CODE,PRODUCT_NAME) AS PROD_CODE_DETAILS
+FROM "DEMO_DATABASE"."PUBLIC"."AJ_CONSUMER_COMPLAINTS"
+WHERE COL_NAME IS NOT NULL;
+
+DESCRIBE VIEW AJ_CONSUMER_COMPLAINTS_VIEW;
+
+SELECT * FROM AJ_CONSUMER_COMPLAINTS_VIEW;
