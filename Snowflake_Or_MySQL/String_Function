@@ -195,3 +195,41 @@ The || operator provides alternative syntax for CONCAT and requires at least two
 For example,
 */
 select 'Nested' || ' CONCAT' || ' example!' as Concat_operator;
+
+--Handling NULL Values in CONCAT function and the Concatenation operator
+--For both the CONCAT function and the concatenation operator,
+--if one or both strings are null, the result of the concatenation is null.
+--For example,
+
+select concat('Bangalore, ', NULL) as null_example;
+select 'Bangalore, '|| NULL as null_example;
+
+--how to handle it?
+select concat('Bangalore ', NVL(NULL,'')) as null_example;
+select 'Bangalore'|| NVL(NULL, '') as null_example;
+
+-- REVERSE IN STRING
+select reverse('India is My Country');
+
+-- SPLIT
+select split('127.0.0.1', '.');
+SELECT SPLIT('ANAND-KUMAR-JHA',' ');
+SELECT SPLIT('ANAND-KUMAR-JHA','-');
+select split('|a||', '|');
+
+create or replace table aj_persons
+(
+   NAME CHAR(10),
+   CHILDREN VARCHAR(30)
+);
+
+INSERT INTO AJ_PERSONS
+VALUES('Mark','Marky,Mark Jr,Maria'),('John','Johnny,Jane');
+
+select * from AJ_persons;
+
+SELECT SPLIT(CHILDREN,',') FROM AJ_persons;
+
+select name, anand.value::string as childname
+from AJ_persons,
+     lateral flatten(input=>split(children, ',')) anand;
