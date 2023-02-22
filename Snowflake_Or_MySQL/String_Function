@@ -158,3 +158,40 @@ select rtrim('ANAND JHA*****', '*');
 --To remove the white spaces or the blank spaces from the string TRIM function can be used. 
 --It can remove the whitespaces from the start and end both.
 select TRIM('  Snwoflake Space Remove  ', ' ');
+
+--To remove the first character from the string you can pass the string in the RTRIM function.
+select LTRIM('Snowflake Remove  ', 'S'); --EXCEL U WILL FIND LEFT
+--To remove the last character from the string you can pass the string in the RTRIM function.
+select RTRIM('Snwoflake Remove  ', 'e'); --IN EXCEL U WILL FIND RIGHT
+
+select BTRIM('  Snwoflake Space Remove  ', ' '); -- THERE IS NOTHING CALLED BTGRIM
+
+--LENGTH FUNCTION
+SELECT LEN(trim('  Snowflake Space Remove  ')) as length_EXCUDING_SPACE_string;
+SELECT LENGTH(trim('  Snowflake Space Remove  ')) as length_string;
+
+--concat
+select * from agents;
+
+SELECT CONCAT('KA', '-', 'India') as state_country;
+
+SELECT *,concat('*',AGENT_CODE, '-', AGENT_NAME,'*') AS agent_details from agents;
+
+--Snowflake CONCAT_WS Function
+/* The concat_ws function concatenates two or more strings, or concatenates two or more binary values 
+and adds separator between those strings.
+The CONCAT_WS operator requires at least two arguments, and uses the first argument to separate all following arguments
+
+Following is the concat_ws function syntax
+CONCAT_WS( <separator> , <expression1> [ , <expressionN> ... ] ) */
+
+SELECT CONCAT_WS('-', 'KA','India') as state_country;
+
+/*
+Snowflake Concat Operator (||)
+The concatenation operator concatenates two strings on either side of the || symbol and returns the concatenated string. 
+The || operator provides alternative syntax for CONCAT and requires at least two arguments.
+
+For example,
+*/
+select 'Nested' || ' CONCAT' || ' example!' as Concat_operator;
