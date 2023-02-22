@@ -26,3 +26,24 @@ INSERT INTO AGENTS VALUES ('A002', 'Mukesh', 'Mumbai', '0.11', '029-12358964', '
 INSERT INTO AGENTS VALUES ('A006', 'McDen', 'London', '0.15', '078-22255588', '');
 INSERT INTO AGENTS VALUES ('A004', 'Ivan', 'Torento', '0.15', '008-22544166', '');
 INSERT INTO AGENTS VALUES ('A009', 'Benjamin', 'Hampshair', '0.11', '008-22536178', '');
+
+SELECT * FROM AGENTS;
+
+--SET THE COUNTRY TO 'IN' WHEREEVER COUNTRY IS NULL OR BLANK IS NULL
+UPDATE AGENTS 
+SET COUNTRY = 'IN' WHERE COUNTRY IN (NULL,'');
+
+SELECT * FROM AJ_CONSUMER
+
+/* The SUBSTRING () function returns the position of a string or binary value from the complete string, 
+starting with the character specified by substring_start_index. If any input is null, null is returned */
+
+--Example 1: Get the substring from a specific string in Snowflake
+select substring('ANAND KUMAR JHA', 1, 9) AS PARTIAL_NAME;
+select substring('ANAND KUMAR JHA', 0, 9) AS PARTIAL_NAME;
+select substring('ANAND KUMAR JHA', 4, 7);
+
+--TO RETURNS THE LENGTH OF THE STRING INCLUDING SPACE
+SELECT LEN('      ANAND KUMAR JHA          ') AS MY_NAME_LENGTH;
+
+select substring('Anand Kumar Jha', 3,3) As Sbstring;
