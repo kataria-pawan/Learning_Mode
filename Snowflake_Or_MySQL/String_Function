@@ -12,7 +12,7 @@ CREATE OR REPLACE TABLE AGENTS
 
 INSERT INTO AGENTS VALUES ('A007', 'Ramasundar', 'Bangalore',0.15,'077-25814763', '');
 INSERT INTO AGENTS(AGENT_CODE,AGENT_NAME,WORKING_AREA) 
-VALUES ('A110', 'Pawan', 'Germany');
+VALUES ('A110', 'Anand', 'Germany');
 
 
 INSERT INTO AGENTS VALUES ('A003', 'Alex ', 'London', '0.13', '075-12458969', '');
@@ -278,3 +278,56 @@ select REPLACE( '   ANAND KUMAR JHA   ' ,' ','*');
 select REPLACE( '   ANAND KUMAR JHA   ' ,' '); -- 
 
 SELECT REPLACE('   T  E S T I N G 1 2 3 4   ',' ');
+
+select replace('abcd', 'bc') as replaced_nothing_just_remove;
+
+create or replace table replace_example
+(subject varchar(10), 
+ pattern varchar(10), 
+ replacement varchar(10));
+ 
+insert into replace_example 
+values('snowman', 'snow', 'fire'), 
+('sad face', 'sad', 'happy');
+
+select * from replace_example;
+
+select subject, pattern, replacement, 
+       replace(subject, pattern, replacement) as new 
+       from replace_example;
+
+select * from AJ_CONSUMER_COMPLAINTS WHERE STARTSWITH(PRODUCT_NAME,'Bank');
+select * from AJ_CONSUMER_COMPLAINTS WHERE PRODUCT_NAME LIKE '%Bank';
+select * from AJ_CONSUMER_COMPLAINTS where contains(PRODUCT_NAME, 'Bank');
+select * from AJ_CONSUMER_COMPLAINTS where endswith(PRODUCT_NAME , 'Loan');
+
+
+select right('ABCDEFG', 2);
+
+select LEFT('ABCDEFG', 4);
+
+SELECT RIGHT('ASJHKVASFJFSACNKLSAHFL2378475723595469HERLLOUS',2) AS COUNTRY_CODE;
+
+SELECT LOWER(CONCAT(AGENT_NAME, ' ', country)) AS NAME_COUNTRY,
+       INITCAP(NAME_COUNTRY) AS_INITCAP_EX,
+       UPPER(RIGHT(NAME_COUNTRY,2)) AS RIGHT_Country
+FROM AGENTS;
+
+select nvl(null, 'bard') as col1, 
+       nvl(null, 0) as col2;
+
+select column1, column2, column3, 
+coalesce(column1, column2, column3) as extracted_values
+from 
+(values
+  ('anand', 'kumar'   ,   null  ),
+  (null, null, 'singh' )
+) v;
+
+SELECT COALESCE(1,'ANAND','KUMAR') AS NAME;
+
+SELECT COALESCE('VIJAY', 1,'ANAND','KUMAR') AS NAME;
+
+SELECT * FROM AGENTS;
+
+SELECT COALESCE(AGENT_CODE, CAST(COMMISSION AS VARCHAR)) AS NEW_DATA FROM AGENTS;
