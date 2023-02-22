@@ -47,3 +47,20 @@ select substring('ANAND KUMAR JHA', 4, 7);
 SELECT LEN('      ANAND KUMAR JHA          ') AS MY_NAME_LENGTH;
 
 select substring('Anand Kumar Jha', 3,3) As Sbstring;
+
+select substr('Anand Kumar Jha',1,1)||substr('Anand Kumar Jha',7,1) as initial;
+
+select concat(substring('ANAND KUMAR JHA',1,1),substring('ANAND KUMAR JHA',7,1),substring('ANAND KUMAR JHA',13,1)) AS partial_name;
+
+select concat('Anand',' India',' Great');
+select 'anand' || ' kumar' || ' jha' as full_name;
+
+select AGENT_CODE || ' ' || AGENT_NAME as AGENT_DETAILS 
+FROM AGENTS;
+
+select PHONE_NO || ' ' || COUNTRY as DETAILS 
+FROM AGENTS;
+
+
+select substr('Raja Ram',0,3);
+select substr('Raja Ram',3);
