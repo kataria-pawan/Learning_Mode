@@ -90,3 +90,32 @@ WHERE COL_NAME IS NOT NULL;
 DESCRIBE VIEW AJ_CONSUMER_COMPLAINTS_VIEW;
 
 SELECT * FROM AJ_CONSUMER_COMPLAINTS_VIEW;
+
+create or replace VIEW CUSTOM_CONSUMER_COMPLAINTS_VIEW AS 
+SELECT *, CONCAT(STATE_NAME,'-',ZIP_CODE) AS STATE_ZIP_DETAILS
+FROM AJ_CONSUMER_COMPLAINTS
+WHERE SUB_ISSUE IS NOT NULL AND CONSUMER_COMPLAINT_NARRATIVE IS NOT NULL
+AND SUB_PRODUCT IS NOT NULL
+AND COMPANY_PUBLIC_RESPONSE IS NOT NULL;
+
+SELECT * FROM CUSTOM_CONSUMER_COMPLAINTS_VIEW;
+
+
+
+/* To get a specific substring from an expression or string. 
+You can also use the substring function if you want to get the substrings in reverse order from the strings. */
+
+-- If you use the substrings in reverse order, use the starting index as a negative value.
+select AGENT_CODE,AGENT_NAME,substring(AGENT_NAME,-3,3) AS NAME_BACKWARDS from agents;
+
+/*
+Snowflake CAST is a data-type conversion command. 
+Snowflake CAST works similar to the TO_ datatype conversion functions. 
+If a particular data type conversion is not possible,
+it raises an error. Let’s understand the Snowflake CAST in detail via the syntax and a few examples.
+*/
+
+select cast('1.6845' as decimal(4,3));
+select '1.6845'::decimal(2,1);
+
+select cast('10-Sep-2021' as timestamp);
