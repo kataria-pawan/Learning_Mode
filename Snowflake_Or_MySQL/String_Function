@@ -119,3 +119,42 @@ select cast('1.6845' as decimal(4,3));
 select '1.6845'::decimal(2,1);
 
 select cast('10-Sep-2021' as timestamp);
+
+-- When the provided precision is insufficient 
+-- to hold the input value, the Snowflake CAST command raises an error as follows:
+select cast('123.12' as number(4,2));
+--Here, precision is set as 4 but the input value has a total of 5 digits, thereby raising the error.
+select cast('123.12' as number(4,1));
+
+--TRY_CAST( <source_string_expr> AS <target_data_type> )
+select try_cast('05-Mar-2016' as timestamp);
+
+--The Snowflake TRY_CAST command returns NULL as the input value 
+--has more characters than the provided precision in the target data type.
+select try_cast('ANAND' as char(4));
+
+---select cast ('27-09-2012' as timestamp) why is it not taking
+
+select TRY_cast('23-09-1990' as timestamp);
+select TRY_cast('1990-09-23' as timestamp);
+
+
+--trim function
+select trim('❄-❄ABC-❄-', '❄-') as trimmed_string;
+select trim('❄-❄ABC-❄-', '❄') as trimmed_string;
+select trim('❄-❄ABC-❄-', '-') as trimmed_string;
+SELECT TRIM('********T E S T I N G 1 2 3 4********','*') AS TRIMMED_SPACE;
+SELECT TRIM('********T E S T I*N*G 1 2 3 4********','*') AS TRIMMED_SPACE;
+
+--ltrim
+select ltrim('#000000123', '0#');
+select ltrim('#0000AISHWARYA', '0#');
+select ltrim('      ANAND JHA', '');
+
+--RTRIM
+select rtrim('$125.00', '0.');
+select rtrim('ANAND JHA*****', '*');
+
+--To remove the white spaces or the blank spaces from the string TRIM function can be used. 
+--It can remove the whitespaces from the start and end both.
+select TRIM('  Snwoflake Space Remove  ', ' ');
