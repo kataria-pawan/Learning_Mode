@@ -163,3 +163,11 @@ values (219874, 'Customer#000219874', 'sadhjekj', 9, '19-505-461-2873', 999.99, 
 select * from identity_column_example 
 --where c_custkey = 219874;
 order by id;
+
+
+--SYNTAX : alter table <table-name> modify column <column-name> default <new-sequence-name>.nextval;
+alter table identity_column_example MODIFY COLUMN id  DEFAULT seq1.NEXTVAL;
+
+UPDATE table identity_column_example 
+SET id  default seq1.nextvalue;
+
