@@ -125,3 +125,41 @@ limit 3;
 --In this case, we have to use a sequence. The identity and autoincrement default values use 
 ---sequences under the hood, 
 -- so we will be essentially recreating that functionality.
+
+-- When we create our own sequence we have access to the next value in the sequence. 
+-- This allows us to add the next incremental value when we backfill the new table with the old table.
+
+-- First, we create a sequence that starts at 1 and increments by 1 and name it seq1:
+create or replace sequence seq1 start=1 increment=1;
+
+DESCRIBE SEQUENCE seq1;
+
+create or replace sequence seq2 start=100 increment=1;
+
+--Next, we’ll recreate our table and add a column id with the nextval of the seq1 sequence as the default:
+create or replace table identity_column_example like "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1"."CUSTOMER";
+
+select get_ddl('table', 'identity_column_example');
+
+--ADDING COLUMNS ID
+alter table identity_column_example 
+add column id int DEFAULT seq1.NEXTVAL;
+
+--SYNTAX : alter table <table-name> ADD/modify column <column-name> default <new-sequence-name>.nextval;
+
+-- Remove the default value
+--alter table <table-name> modify column <column-name> drop default;
+
+alter table identity_column_example MODIFY COLUMN id  DEFAULT seq2.NEXTVAL; 
+
+--Then, we can backfill the new table using nextval:
+insert into identity_column_example 
+select *,seq2.nextval from "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1"."CUSTOMER";
+
+-- Now, when we add a new record, the id column autoincrements properly and will remain unique:
+insert into identity_column_example(c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_mktsegment, c_comment)
+values (219874, 'Customer#000219874', 'sadhjekj', 9, '19-505-461-2873', 999.99, 'asjdasgdj', 'sdadtyhkjer');
+
+select * from identity_column_example 
+--where c_custkey = 219874;
+order by id;
