@@ -1,0 +1,19 @@
+--Add identity or autoincrement to table in Snowflake
+
+/* In Snowflake, you can set the default value for a column, 
+which is typically used to set an autoincrement or identity as the default value, 
+so that each time a new row is inserted a unique id for that 
+row is generated and stored and can be used as a primary key. 
+
+You can specify the default value for a column using create table or alter table.
+
+However, if you try to alter a table to add an autoincrement column that already 
+has data in it, we will get an error in Snowflake. 
+
+This is not supported in Snowflake, due to the underlying architecture.
+
+It’s not as easy as altering the existing table, but there are two ways we can add an 
+identity or autoincrement column to an existing table. */
+
+--Method 1: Using autoincrement or identity as a default value.
+--First we are going to create a simple table that we want to add an identity/autoincrement field to:
