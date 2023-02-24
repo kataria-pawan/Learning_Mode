@@ -85,3 +85,43 @@ start = 1
 INCREMENT = 5
 comment ='this seq will be used to generate employee IDs';
 
+DESCRIBE SEQUENCE PK_SEQ;
+
+--DONT IONSERT RECORDS AS AUTOINCREMENT WORKS ON EMPTY TABLE
+--insert into  "DEMO_DATABASE"."PUBLIC"."IDENTITY_COLUMN_EXAMPLE"
+---select * from "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1"."CUSTOMER";
+
+SELECT * FROM "IDENTITY_COLUMN_EXAMPLE";
+
+--3RD STEP
+alter table identity_column_example 
+add column id int identity(1,1) ;
+
+SELECT  * FROM identity_column_example;
+
+-- Let’s see what happens when we fill that column with an expression that auto-increments.
+-- 4TH STEP
+insert into identity_column_example 
+select *,row_number() over (order by null)
+from "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1"."CUSTOMER";
+
+SELECT * FROM identity_column_example ORDER BY ID;
+
+
+insert into identity_column_example(c_custkey, c_name, c_address, c_nationkey, c_phone, c_acctbal, c_mktsegment, c_comment)
+values (219874, 'Customer#000219874', 'sadhjekj', 9, '19-505-461-2873', 999.99, 'asjdasgdj', 'sdadtyhkjer');
+
+select * from identity_column_example WHERE c_custkey = '219874';
+SELECT * FROM identity_column_example ORDER BY ID;
+
+select * from identity_column_example 
+order by id 
+limit 3;
+
+-- As you can see we have a duplicate value in our id field, 
+--because the identity column counter was never triggered, 
+--- so when we insert a new record it starts over at 1.
+
+--In this case, we have to use a sequence. The identity and autoincrement default values use 
+---sequences under the hood, 
+-- so we will be essentially recreating that functionality.
