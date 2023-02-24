@@ -56,3 +56,32 @@ if not specified, is 1 for both*/
 alter table pk_identity_column_example rename to colors;
 
 SELECT * FROM colors;
+
+-- Method 2: Using sequences
+/*
+In the example above we only had one column, so specifying the column manually in the insert worked fine for our use case. 
+But, sometimes existing tables have a lot of columns and we don’t want to have to specify each column, either to save time or also to avoid errors.
+
+We can programatically add an autoincrement or identity field to a wide table, 
+but we have to do it a little differently.
+*/
+
+-- The main problem here and the reason we get an error is when we use * 
+-- the number of columns returned is one less than the new table we created. 
+-- We can’t specify an empty value in a select statement, so we can’t force the identity column 
+-- to populate in the way we want. 
+-- We could specifiy the columns we want to populate manually, 
+-- leaving out only the id column, but that’s what we are trying to avoid.
+
+
+-- Let’s use an existing Snowflake sample data table to see why we can’t just alter the existing table:
+-- FIRST STEP
+create or replace table identity_column_example like "SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1"."CUSTOMER";
+DESCRIBE TABLE identity_column_example;
+
+-- generating sequences - SECOND STEP
+CREATE OR REPLACE SEQUENCE PK_SEQ
+start = 1
+INCREMENT = 5
+comment ='this seq will be used to generate employee IDs';
+
